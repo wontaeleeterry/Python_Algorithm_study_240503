@@ -70,12 +70,13 @@ ORDER BY T1.CHG_RT DESC;    # 양봉 조건인 항목을 찾아서 등락순으�
 # 위의 SQL 수정 필요 : 원하는 결과는 '양봉'인 종목의 이름을 출력하는 것
 
 # INNER JOIN 예제 (240508)
-SELECT T1.STK_CD, T2.STK_NM, T1.C_PRC, T1.O_PRC
+SELECT T1.STK_CD, T2.STK_NM, T1.C_PRC, T1.O_PRC    # 종목 코드, 종목명, 종가, 시초가
 #SELECT T2.STK_NM
 FROM  HISTORY_DT T1           
 	INNER JOIN STOCK T2
 		  ON (T1.STK_CD = T2.STK_CD)     # 테이블의 별칭 T1
 WHERE T1.DT = STR_TO_DATE('20190103', '%Y%m%d') # 날짜형 변환 : 문자열 20190102를 YYYY-MM-DD / 주의 m 소문자
 #AND T1.C_PRC > T1.O_PRC;     # 종가(C_PRC)가 시가(O_PRC)보다 큰 경우 : 양봉
-AND T1.C_PRC/T1.O_PRC > 1.2;  # 종가가 시가 대비 20% 이상 상승 마감한 경우	
+AND T1.C_PRC/T1.O_PRC > 1.2;  # 종가가 시가 대비 20% 이상 상승 마감한 경우 추출	
+# 특정 날짜 AND 특정 조건 을 만족하는 결과 테이블 출력
     
