@@ -24,7 +24,7 @@ WHERE STK_NM = '삼성전자';  # 특정 이름 지정하여 검색
 SELECT STK_CD, STK_NM, SEC_NM
 FROM STOCK
 WHERE STK_NM LIKE '삼성%'        # '삼성'이 앞에 포함된 기업명 추출하여 오름차순으로 정렬
-ORDER BY STK_NM ASC;  
+ORDER BY STK_NM ASC;            # '삼성'이 포함되어도 계열사가 아닐 수 있다.  
 
 SELECT STK_CD, STK_NM, SEC_NM
 FROM STOCK
@@ -44,3 +44,5 @@ WHERE   T1.STK_NM = '삼성전자'
 ORDER BY T1.STK_CD ASC;
 
 # Chap 4. 종목 테이블 이해하기 (240508 계속)
+
+
