@@ -43,6 +43,39 @@ FROM    STOCK T1                   # STOCK 테이블을 T1으로 별칭을 지�
 WHERE   T1.STK_NM = '삼성전자'
 ORDER BY T1.STK_CD ASC;
 
-# Chap 4. 종목 테이블 이해하기 (240508 계속)
+# Chap 4. 봉 차트와 일별 주가
+SELECT T1.* FROM HISTORY_DT T1;   # 별칭을 부여하고 테이블의 내부 내용을 확인
 
+SELECT T1.*     # 테이블의 별칭 T1
+FROM HISTORY_DT T1
+WHERE T1.DT = STR_TO_DATE('20190102', '%Y%m%d') # 날짜형 변환 : 문자열 20190102를 YYYY-MM-DD / 주의 m 소문자
+AND T1.C_PRC > T1.O_PRC     # 종가(C_PRC)가 시가(O_PRC)보다 큰 경우 : 양봉
+ORDER BY T1.CHG_RT DESC;    # 양봉 조건인 항목을 찾아서 등락순으로 정리
 
+# 데이터베이스를 이용한 통계 분석(240508)
+# 위의 양봉인 조건인 종목의 이름을 확인할 방법 / 양봉 or 음봉 항목의 갯수 통계
+
+# INNER JOIN문의 활용(240508)
+# 양봉 종목의 이름 확인
+ SELECT * FROM HISTORY_DT;
+ SELECT * FROM STOCK;
+ SELECT T1.*     # 테이블의 별칭 T1
+ 
+FROM HISTORY_DT T1
+	INNER JOIN STOCK T2
+    ON (T2.STK_CD = T1.STK_CD)
+WHERE T1.DT = STR_TO_DATE('20190102', '%Y%m%d') # 날짜형 변환 : 문자열 20190102를 YYYY-MM-DD / 주의 m 소문자
+AND T1.C_PRC > T1.O_PRC     # 종가(C_PRC)가 시가(O_PRC)보다 큰 경우 : 양봉
+ORDER BY T1.CHG_RT DESC;    # 양봉 조건인 항목을 찾아서 등락순으로 정리
+# 위의 SQL 수정 필요 : 원하는 결과는 '양봉'인 종목의 이름을 출력하는 것
+
+# INNER JOIN 예제 (240508)
+SELECT T1.STK_CD, T2.STK_NM, T1.C_PRC, T1.O_PRC
+#SELECT T2.STK_NM
+FROM  HISTORY_DT T1           
+	INNER JOIN STOCK T2
+		  ON (T1.STK_CD = T2.STK_CD)     # 테이블의 별칭 T1
+WHERE T1.DT = STR_TO_DATE('20190103', '%Y%m%d') # 날짜형 변환 : 문자열 20190102를 YYYY-MM-DD / 주의 m 소문자
+#AND T1.C_PRC > T1.O_PRC;     # 종가(C_PRC)가 시가(O_PRC)보다 큰 경우 : 양봉
+AND T1.C_PRC/T1.O_PRC > 1.2;  # 종가가 시가 대비 20% 이상 상승 마감한 경우	
+    
