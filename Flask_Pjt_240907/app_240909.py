@@ -21,6 +21,10 @@ def sign_up():
     app.id_count = app.id_count + 1
 
     return jsonify(new_user)
+
+# 회원 가입에 필요한 정보들
+# id / name / email / password / profile
+
 #-----------------------------------------------------
 # API 실행 방법 #
 
@@ -84,7 +88,7 @@ def sign_up():
 #    "id": 1,
 #    "name": "Terry"
 
-
+#----------------------------------------------------------
 #(base) C:\Users\wonta>http -v POST http://127.0.0.1:5000/sign-up name=Terry email=wontae.lee@gmail.com
 #POST /sign-up HTTP/1.1
 #Accept: application/json, */*;q=0.5
