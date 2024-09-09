@@ -1,5 +1,8 @@
 from flask import Flask, request, jsonify                # Flask를 사용하기 위하여 임포트
- 
+# request - 엔드 포인트에 전송된 HTTP 요청 정보 (헤더, 바디)를 저장
+#           HTTP 요청을 통해 전송한 JSON 데이터를 읽어 들일 수 있다.
+
+
 app = Flask(__name__)                  # 임포트한 Flask 클래스를 객체화시켜 app이라는 변수에 자장 -> API 애플리케이션이 된다.
 app.id_count = 1
 app.users = {}
@@ -9,9 +12,9 @@ app.users = {}
 def ping():                            # ping 함수를 정의 - 단순히 "pong" 텍스트만을 리턴
     return "pong"
 
-@app.route("/sign-up", methods=['POST'])
+@app.route("/sign-up", methods=['POST'])   # POST 방식의 엔드포인트 : 'field = value' 추가
 def sign_up():
-    new_user = request.json
+    new_user = request.json           # HTTP 요청을 통해 전송된 회원 정보를 읽어들인다.
     new_user["id"] = app.id_count
 
     app.users[app.id_count] = new_user
