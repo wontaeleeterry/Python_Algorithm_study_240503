@@ -1,29 +1,18 @@
-# 참고 : https://m.blog.naver.com/shino1025/221355012951
+# 실시간 시간 출력 
+# Jinja2 - html 연결
+# 일정 시간 주기로 내용 갱신 등
 
-from flask import Flask, render_template, make_response
-from flask import request
+from flask import Flask, render_template
+from datetime import datetime
 
 app = Flask(__name__)
+app.secret_key = 'sample_secret'
 
-@app.route('/')
-def index():
-    return render_template('index.html')
+@app.route('/hello/')
+@app.route('/hello/<name>')
+def hello(name=None):
+    now = datetime.now()    # 현재 시각을 전달하고
+    name = now              # Jinja2 구문을 통하여 현재 시각을 실시간으로 전달
+    return render_template('hello.html', name = name)
 
-@app.route('/setcookie', methods = ['POST', 'GET'])
-def setcookie():
-   if request.method == 'POST':
-      user = request.form['nm']
-      resp = make_response("Cookie Setting Complete")
-      resp.set_cookie('userID', user)
-      return resp
-
-@app.route('/getcookie')
-def getcookie():
-   name = request.cookies.get('userID')
-   return '<h1>welcome '+name+'</h1>'
-
-
-# 쿠키와는 다르게 세션은 데이터 서버에 저장된다.
-# 서버에서 관리된다는 점에서 안정성이 좋다.
-# 플라스크에서 세션은 딕셔너리 형태로 저장된다. -> 키를 통해 해당 값을 불러올 수 있다.
-
+# 파이썬의 name 변수를 html의 {{name}} 으로 전달 (데이터 던져주기)
