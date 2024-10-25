@@ -1,0 +1,45 @@
+<!-- ./templates/board1.html -->
+ 
+<!doctype html>
+<html lang="ko">
+ 
+<head>
+    <meta charset="UTF-8">
+    <meta name="Generator" content="EditPlus®">
+    <meta name="Author" content="">
+    <meta name="Keywords" content="">
+    <meta name="Description" content="">
+    <title>SQLite3 게시판 등록</title>
+    
+    <!-- 스타일 시트 적용을 위하여 아래 위치 관련 입력 -->
+    <link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}">
+    
+    <!-- 기존에 있던 스타일 관련 내용은 주석 처리 -->
+    <!--
+    <style type="text/css">
+        body {
+            text-align: center;
+        }
+    </style>
+    -->
+    
+</head>
+ 
+<body>
+    <h3>게시판</h3>
+    <h4><a href="{{url_for('add')}}">추가</a> <a href="{{url_for('search')}}">검색</a><br><br>목록</h4>
+    <table border=1 width="600" align="center">
+        <thead>
+            <td>이름</td>
+            <td>내용</td>
+        </thead>
+        {% for row in rows %}
+        <tr>
+            <td>{{ row[0] }}</td>
+            <td>{{ row[1] }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+ 
+</html>

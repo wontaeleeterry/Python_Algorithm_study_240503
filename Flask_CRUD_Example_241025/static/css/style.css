@@ -1,0 +1,20 @@
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+th, td {
+    padding: 10px;
+    border-bottom: 1px solid #cd5c5c;
+}
+
+/* 커서를 갖다대면 색깔이 바뀌며 직관적으로 표현한다 */
+tr:hover {background-color: #f5f5f5;}
+
+/* 하이퍼 링크 처리 */
+/* https://coding-yesung.tistory.com/88  */
+
+a:link {text-decoration: none; color: greenyellow}
+a:visited {text-decoration: none; color: teal;}
+a:hover {text-decoration: underline; color: brown;}
+a:active {text-decoration: underline; color: cyan;}
